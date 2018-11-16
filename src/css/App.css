@@ -1,0 +1,85 @@
+.App {
+  text-align: center;
+}
+
+.App-dropdown {
+  width: 250px;
+}
+
+/***********************************************************
+  Nav
+  *******************************************************/
+.navbar   {  height: 56px; position: fixed; width: 100%;}
+.Nav-item {  cursor: pointer;}
+.navbar-input {  height: 35px;}
+.navbar-input > label {  font-size: 12px;  transform: translate(14px, 12px) scale(1) }
+.show-password-btn {  outline: none !important;  right: -10px; }
+span[label="Remember me"] {
+  padding: 0;
+  height: 0.7em;
+  width: 0.7em;
+  margin: 0 8px 0 0;
+}
+
+#login-submit {  margin:auto;  width: 100%;}
+span[label="Remember me"] > span > svg {  height: 0.7em; width: 0.7em;}
+#login-btn    {  height: 100%; width: 88%;}
+#register-btn {  float: right; width: 88%; color: white; background-color: green;}
+
+/*********************************************
+  Register
+*********************************************/
+#register {
+  width: 100%;
+  position: absolute;
+  top: 56px;
+  bottom: 0;
+  background-color: blue;
+}
+/*********************************************
+  Home
+*********************************************/
+#home {
+  width: 100%;
+  position: absolute;
+  top: 56px;
+  bottom: 0;
+  background-color: blue;
+}
+/*********************************************
+    - About
+*********************************************/
+#about {
+  width: 100%;
+  height: 100vh;
+  top: 56px;
+  bottom: 0;
+  background-color: blue;
+}
+/*********************************************
+    - Growths
+*********************************************/
+#growths {
+  width: 100%;
+  height: 100vh;
+  background-color: green;
+}
+/*********************************************
+    - Partners
+*********************************************/
+#partners {
+  width: 100%;
+  height: 100vh;
+  background-color: red;
+}
+
+/*********************************************
+  Dashboard
+*********************************************/
+#dashboard {
+  width: 100%;
+  position: absolute;
+  top: 56px;
+  bottom: 0;
+  background-color: blue;
+}
