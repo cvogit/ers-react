@@ -6,11 +6,14 @@ import Partners from './home/page.Partners';
 class Home extends Component {
   render() {
     return (
-      <>
-        <About />
-        <Growths />
-        <Partners />
-      </>
+      <div id="home-container">
+        <h1 id="home-main-text">
+          Welcome!
+        </h1>
+        <h2 id="home-sub-text">
+          Sign in use Revature Reimbursement System
+        </h2>
+      </div>
     );
   }
 }

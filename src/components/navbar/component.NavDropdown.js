@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios  from 'axios';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -12,7 +13,10 @@ import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Checkbox from '@material-ui/core/Checkbox';
+import Snackbar from '@material-ui/core/Snackbar';
+import FontIcon from 'react-toolbox/lib/font_icon';
 
+const SERVER_ADDRESS = process.env.REACT_APP_SERVER_ADDRESS;
 class NavDropdown extends Component {
   constructor(props) {
 		super(props);
@@ -29,20 +33,59 @@ class NavDropdown extends Component {
     e.stopPropagation();
   }
 
-  changeInput = (e) => {
-    if(e.target.id === "outlined-adornment-username") {
-      this.setState({
-        username: e.target.value
-      });
-    } else if(e.target.id === "outlined-adornment-password") {
-      this.setState({
-        password: e.target.value
-      });
+  handleClickShowPassword = (e) => {
+    this.setState(state => ({ showPassword: !state.showPassword }));
+  };
+
+  handleInputChange = (e) => {
+		if (e.target.id === 'outlined-adornment-username') {
+			this.setState({ username: e.target.value });
+		} else if (e.target.id === 'outlined-adornment-password') {
+      this.setState({ password: e.target.value });
     }
   }
 
-  handleClickShowPassword = (e) => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
+  handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    params.append('username', this.state.username);
+    params.append('password', this.state.password);
+    
+    axios.post(SERVER_ADDRESS+'/users/login', params)
+    .then((response) => {
+      
+      this.handleSnackbarMessage(response.data.message);
+      this.handleSnackbarOpen();
+      this.props.handleLogIn(response.data.username, 
+                              response.data.roles, 
+                              response.data.id,
+                              response.data.jwt);
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if(error.response) {
+        this.handleSnackbarMessage(error.response.data.message);
+        this.handleSnackbarOpen();
+      }
+    });
+  }
+
+  handleSnackbarMessage = (message) => {
+    this.setState({
+      snackbarMessage: message
+    });
+  };
+
+  handleSnackbarOpen = () => {
+    this.setState({
+      snackbarOpen: true 
+    });
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({
+      snackbarOpen: false 
+    });
   };
 
   toggleRemember = (e) => {
@@ -57,42 +100,38 @@ class NavDropdown extends Component {
 
 		// Navbar is user is not logged in
 		let tMenu = <DropdownMenu className="App-dropdown" right>
-                  <DropdownItem>
-                    <TextField
-                      id="outlined-adornment-username"
-                      className="navbar-input"
-                      variant="outlined"
-                      label="username"
-                      value={this.state.username}
-                      onClick={this.stopDefault}
-                      onChange={this.changeInput}
-                    />
-                  </DropdownItem>
-                  <DropdownItem>
-                    <TextField
-                      id="outlined-adornment-password"
-                      className="navbar-input"
-                      variant="outlined"
-                      type={this.state.showPassword ? 'text' : 'password'}
-                      label="password"
-                      value={this.state.password}
-                      onClick={this.stopDefault}
-                      onChange={this.changeInput}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              className="show-password-btn"
-                              aria-label="Toggle password visibility"
-                              onClick={this.handleClickShowPassword}
-                            >
-                              {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </DropdownItem>
+                  <TextField
+                    id="outlined-adornment-username"
+                    className="navbar-input"
+                    variant="outlined"
+                    label="username"
+                    value={this.state.username}
+                    onClick={this.stopDefault}
+                    onChange={this.handleInputChange}
+                  />
+                  <TextField
+                    id="outlined-adornment-password"
+                    className="navbar-input"
+                    variant="outlined"
+                    type={this.state.showPassword ? 'text' : 'password'}
+                    label="password"
+                    value={this.state.password}
+                    onClick={this.stopDefault}
+                    onChange={this.handleInputChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            className="show-password-btn"
+                            aria-label="Toggle password visibility"
+                            onClick={this.handleClickShowPassword}
+                          >
+                            {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
                   <DropdownItem id="login-submit">
                     <Checkbox
                       id="remember-user-checkbox" 
@@ -100,12 +139,12 @@ class NavDropdown extends Component {
                       label="Remember me"
                       onClick={this.toggleRemember}
                     />
-                    <Button variant="contained" color="primary" id="login-btn">
+                    <Button onClick={this.handleLoginSubmit} variant="contained" color="primary" id="login-btn">
                       Login
                     </Button>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem onClick={() => this.props.history.push('/register')}>
+                  <DropdownItem onClick={() => this.props.registerPage()}>
                     <Button variant="contained" id="register-btn">
                       Register
                     </Button>
@@ -116,8 +155,8 @@ class NavDropdown extends Component {
       tDropdown = this.props.username;
 			tMenu=  <DropdownMenu className="App-dropdown" right>
                 <DropdownItem>
-                  <NavLink onClick={() => this.props.history.push('/dashboard')}>
-                    Dashboard
+                  <NavLink onClick={() => this.props.history.push('/profile')}>
+                    Profile
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem divider />
@@ -132,9 +171,20 @@ class NavDropdown extends Component {
     return (
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
-          {tDropdown}
+          <FontIcon id="nav-dropdown-icon" value='account_circle' />
+          <p id="nav-dropdown-text">{tDropdown}</p>
         </DropdownToggle>
         {tMenu}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={this.state.snackbarOpen}
+          autoHideDuration={5000}
+          onClose={this.handleSnackbarClose}
+          message={<h6 className="app-snackbar-message">{this.state.snackbarMessage}</h6>}
+        />
       </UncontrolledDropdown>
     );
   }

@@ -6,12 +6,50 @@
   width: 250px;
 }
 
+.app-snackbar-message {
+  font-size: 16px;
+  margin:auto;
+}
+
 /***********************************************************
   Nav
   *******************************************************/
-.navbar   {  height: 56px; position: fixed; width: 100%;}
-.Nav-item {  cursor: pointer;}
-.navbar-input {  height: 35px;}
+.navbar     { background-color: rgb(255, 255, 255) !important; height: 56px; position: fixed; width: 100%; z-index: 999;}
+.narbar-nav { margin: 0px 4em 0 0;}
+.Nav-brand  { 
+  color: #ea8741 !important; 
+  font-size: 50px; font-style: italic; 
+  font-weight: bolder; 
+  margin: 0 0 5px 1em;
+  height: 56px;
+  display: block;
+}
+#Nav-brand-img {
+  height: 110% !important;
+  display: block;
+  float: left;
+}
+#Nav-brand-text {position: relative; line-height: 1.50;}
+.Nav-brand:hover   { color: #ea8741 !important;}
+.Nav-brand:focus   { color: #ea8741 !important;}
+#nav-dropdown-icon {
+  margin: 0 10px 0 0;
+  top: 5px;
+  position: relative;}
+#nav-dropdown-text {display: inline;}
+.Nav-item       {  cursor: pointer; font-size: 22px;}
+.nav-item       { margin: 0 0.3em;}
+.nav-item .dropdown { margin: 0 0 0 5em;}
+.nav-item > a     {  color: black !important;}
+.Nav-item:active  { background-color: white;
+}
+.navbar-input {  height: 35px; margin: 3px 10% !important; width: 80%;}
+.navbar-input > div   { padding: 0;}
+#show-password-btn { padding: 0 15px 0 0;}
+#outlined-adornment-username, #outlined-adornment-password {
+  padding: 5px;
+  height: 100%;
+}
 .navbar-input > label {  font-size: 12px;  transform: translate(14px, 12px) scale(1) }
 .show-password-btn {  outline: none !important;  right: -10px; }
 span[label="Remember me"] {
@@ -25,16 +63,32 @@ span[label="Remember me"] {
 span[label="Remember me"] > span > svg {  height: 0.7em; width: 0.7em;}
 #login-btn    {  height: 100%; width: 88%;}
 #register-btn {  float: right; width: 88%; color: white; background-color: green;}
-
+.navbar-input-name-left {
+  width: 49% !important;
+  float: left !important;
+  margin: 0 1% 0 0 !important;
+}
+.navbar-input-name-right {
+  width: 49% !important;
+  float: right !important;
+  margin: 0 0 0 1% !important;
+}
 /*********************************************
   Register
 *********************************************/
-#register {
-  width: 100%;
-  position: absolute;
-  top: 56px;
-  bottom: 0;
-  background-color: blue;
+#register-container {
+  margin: 100px auto !important;
+  background-color: white;
+  position: relative;
+  border: 1px gray solid;
+  width: 700px;
+  padding: 20px;
+}
+#register-text {color: orange; display: block;}
+.register-submit-btn {
+  float: right;
+  margin: 2% 2% 0 2% !important;
+  background-color: #bffffc !important;
 }
 /*********************************************
   Home
@@ -81,5 +135,188 @@ span[label="Remember me"] > span > svg {  height: 0.7em; width: 0.7em;}
   position: absolute;
   top: 56px;
   bottom: 0;
-  background-color: blue;
+  background-color: #e0e0e0;
+}
+
+/*********************************************
+  Sidebar
+*********************************************/
+.sidebar {
+	height: 100%;
+	width: 120px;
+	background-color: #443d31;
+	float: left;
+}
+
+.sidebar-header {
+	height: 60px;
+  padding: 0px 5px;
+  margin: 15px 0;
+	width: 100%;
+	border-width: thin;
+	border-bottom: 2px solid #4c4c4c;
+	position: relative;
+}
+
+.sidebar-month {
+  color: #ea8741;
+  display: inline-block;
+  margin: 0;
+}
+
+.sidebar-date {
+  color: #b7d2ea;
+  display: inline-block;
+  margin: 0;
+}
+
+.home-btn {
+	background-color: rgb(148, 189, 223);
+	position: relative;
+	display: block;
+	height: 80px;
+	width: 80px;
+	float: left;
+	margin: 10px 5px 10px 10px;
+	border-radius: 50%;
+	/* Home icon
+	*/
+	text-decoration: none;
+	font-size: 3.5em;
+	color: #d6d6d6;
+}
+
+.home-btn img {
+	margin: -20px 0px 0px 0px;
+}
+
+.home-btn:hover {
+	text-decoration: none;
+	color: #d6d6d6;
+}
+
+.home-btn:active {
+	background-color: #fff;
+}
+
+.tab {
+  cursor: pointer;
+  background-color: #f9ba8f  !important;
+  color: black !important;
+  font-weight: bold;
+	height: 50px;
+	padding: 0px 0px 0px 20px;
+	text-align: left;
+  width: 100%;
+  margin: 3px 0;
+  border-radius: 5px 0 0 5px;
+  border: 3px #f9ba8f  solid;
+  border-right: none;
+}
+
+.tab:hover {
+	background-color: rgba(255, 177, 143, 0.8) !important;
+	border-radius: 5px 0 0 5px;
+}
+
+.tab-active {
+  background-color: #ea8741 !important;
+  border-radius: 5px 0 0 5px;
+  border: 3px #ea8741 solid;
+  border-right: none;
+  color: #000000 !important;
+  height: 50px;
+  padding: 0px 5px 0px 17px;
+  text-align: left;
+  font-weight: bolder;
+  width: 90%;
+  float: right;
+}
+
+/*******************************************
+  Dashboard Container
+*******************************************/
+#dashboard-container {
+  background-color: #dcdcdc;
+  padding: 1em;
+  position: absolute;
+  margin: 0 0 0 120px;
+  width: -webkit-fill-available;
+  height: 100%;
+}
+
+/*******************************************
+  Home Container
+*******************************************/
+#home-container {
+  background-color: #f3f3f3;
+  max-height: 93%;
+  max-width: 100%;
+  height: 100%;
+  width: 100%;
+  padding: 150px 0;
+}
+#home-main-text { color: orange;}
+#home-sub-text { color: #59aec7;}
+
+/*******************************************
+  Employee Container
+*******************************************/
+#employee-container {
+  background-color: #f3f3f3;
+  max-height: 93%;
+  max-width: 100%;
+}
+
+/*******************************************
+  Manager Container
+*******************************************/
+#manager-container {
+  background-color: #f3f3f3;
+  height: 93%;
+  width: 100%;
+}
+
+/*******************************************
+  Reimbursement Table
+*******************************************/
+#reimbursement-tooltip-container {  display: contents;}
+#reimbursement-table-approve-icon {
+  margin: 0 5px;
+  width: 160px;
+  display: flex;
+  background-color: #37b937 !important;
+  color: white;
+}
+#reimbursement-table-deny-icon {
+  margin: 0 5px;
+  width: 120px;
+  display: flex;
+  background-color: #ea2000 !important;
+  color: white;
+}
+.reimbursement-table-tooltip {  display: inline;  margin: 0;}
+.type-column      { padding: 0 0 0 22px !important;}
+.submit-column    { text-align: left !important;  padding: 0 0 0 0 !important;}
+.resolved-column  { text-align: center !important;  padding: 0 0 0 10px !important;}
+.amount-column    { text-align: left !important;  padding: 0 0 0 50px !important;}
+.description-column {  text-align: left !important;  padding: 0 0 0 0 !important; overflow-y: scroll;}
+.status-column    { text-align: left !important;  padding: 0 0 0 20px !important;}
+.author-column    { text-align: left !important;  padding: 0 0 0 20px !important;}
+.resolver-column  { text-align: left !important;  padding: 0 0 0 20px !important;}
+.green-text       { color: green !important;}
+.red-text         { color: red !important;}
+th	    { padding: 4px 39px 4px 24px !important;}
+
+.filled-select-type {
+  height: 68px !important;
+  left: 20px !important;
+}
+/*******************************************
+    Media Queries
+*******************************************/
+
+@media only screen and (max-width: 600px) {
+  .navbar-collapse {background-color: white;}
+  .App-dropdown {margin: 5px auto; }
 }

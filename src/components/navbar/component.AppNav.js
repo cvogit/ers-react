@@ -8,6 +8,7 @@ import {
 import { withRouter } from 'react-router';
 import NavDropdown from './component.NavDropdown';
 import NavItems from './component.NavItems';
+import logo from '../../images/revature.png';
 
 class AppNav extends Component {
   constructor(props) {
@@ -24,17 +25,17 @@ class AppNav extends Component {
 	}
 
   render() {
-    let tNavItems = <NavItems {...this.props} />
-    if(window.location.pathname === "/dashboard")
-      tNavItems = null;
 
     return (
       <Navbar color="light" light expand="md">
-        <NavbarBrand className="Nav-brand" href="/">ERS</NavbarBrand>
+        <NavbarBrand className="Nav-brand" href="/">
+          <img id="Nav-brand-img" label="Logo" src={logo} />
+          <h1 id="Nav-brand-text">ERS</h1>
+        </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            {tNavItems}
+            {/* {tNavItems} */}
             <NavDropdown {...this.props} />
           </Nav>
         </Collapse>

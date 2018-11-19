@@ -3,7 +3,6 @@ import { NavItem, NavLink } from 'reactstrap';
 
 class NavItems extends Component {
   handleScroll = (value) => {
-		console.log(value);
 		var element = 'home';
 		if (value === 'about') {
 			element = document.getElementById('about');
