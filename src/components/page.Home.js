@@ -11,7 +11,7 @@ class Home extends Component {
           Welcome!
         </h1>
         <h2 id="home-sub-text">
-          Sign in use Revature Reimbursement System
+          Revature Reimbursement System
         </h2>
       </div>
     );

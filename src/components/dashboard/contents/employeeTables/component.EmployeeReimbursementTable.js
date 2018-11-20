@@ -208,19 +208,22 @@ class EnhancedTable extends React.Component {
   };
 
   componentDidMount() {
-    if( localStorage.getItem('JWT') ) {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('JWT');
-
-      axios.get(SERVER_ADDRESS+'/reimbursements/users/'+this.props.id)
-      .then((response) => {
-        this.setState({
-          data: response.data
+    window.setTimeout(() => {
+      if( localStorage.getItem('JWT') ) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('JWT');
+        axios.get(SERVER_ADDRESS+'/reimbursements/users/'+this.props.id)
+        .then((response) => {
+          console.log("Success");
+          this.setState({
+            data: response.data
+          });
+        })
+        .catch((error) => {
+          console.log("Fail");
+          console.log(error.response);
         });
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-    }
+      }
+    }, 1000);
   }
 
   handleTicketSubmit = () => {
@@ -229,9 +232,9 @@ class EnhancedTable extends React.Component {
         this.state.ticketDescription !== '') {
       if( localStorage.getItem('JWT') ) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('JWT');
-        axios.post(SERVER_ADDRESS+'/reimbursements?amount='+this.state.ticketAmount+"&description="+this.state.ticketDescription+"&type_id="+this.state.ticketAmount)
+        axios.post(SERVER_ADDRESS+'/reimbursements?amount='+this.state.ticketAmount+"&description="+this.state.ticketDescription+"&type_id="+this.state.ticketType)
         .then((response) => {
-          this.handleSnackbarMessage("Update request success");
+          this.handleSnackbarMessage("Ticket submitted.");
           this.handleSnackbarOpen();
           axios.get(SERVER_ADDRESS+'/reimbursements/users/'+this.props.id)
           .then((response) => {
@@ -438,7 +441,10 @@ class EnhancedTable extends React.Component {
                       <TableCell className="submit-column" numeric>{tSubmitTime}</TableCell>
                       <TableCell className="resolved-column" numeric>{tResolvedTime}</TableCell>
                       <TableCell className="amount-column" numeric>{n.amount}</TableCell>
-                      <TableCell className="description-column" numeric>{n.description}</TableCell>
+                      <TableCell className="description-column" title={n.description} numeric>
+                        <p className="description-column">{n.description}
+                        </p>
+                      </TableCell>
                       {statusRow}
                       <TableCell className="author-column" numeric>{author}</TableCell>
                       <TableCell className="resolver-column" numeric>{resolver}</TableCell>

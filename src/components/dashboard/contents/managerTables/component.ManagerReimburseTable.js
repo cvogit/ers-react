@@ -382,6 +382,8 @@ class EnhancedTable extends React.Component {
                   if(n.authorFirst === null)
                     author = "N/A";
                   let resolver = n.resolverFirst + " " + n.resolverLast;
+                  if(n.resolverFirst === null)
+                    resolver = "N/A";
                   let tSubmit = new Date(parseInt(n.submitted));
                   let tSubmitTime = tSubmit.toDateString();
                   let tResolved;

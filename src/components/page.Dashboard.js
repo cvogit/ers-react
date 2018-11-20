@@ -38,15 +38,19 @@ class Dashboard extends Component {
 		const currentYear 	= date.getFullYear();
 		const currentHour 	= date.getHours();
 		const currentMinute = date.getMinutes();
-
-		const renderTabs = this.props.role.split(" ").map(function(role) {
-			if (activeTab === role)
-				return <Button className="tab-active" key={role} label={role} accent onClick={tabSelect} value={role} />
-			else if ( role !== '')
-				return <Button className="tab" key={role} label={role} accent onClick={tabSelect} value={role} />	
-			else
-				return null;
-    });
+		let renderTabs;
+		if(this.props.loggedIn) {
+			renderTabs = this.props.role.split(" ").map(function(role) {
+				if (activeTab === role)
+					return <Button className="tab-active" key={role} label={role} accent onClick={tabSelect} value={role} />
+				else if ( role !== '')
+					return <Button className="tab" key={role} label={role} accent onClick={tabSelect} value={role} />	
+				else
+					return null;
+			});
+		} else {
+			renderTabs = null;
+		}
 
     let renderContent = null;
     if(activeTab === "employee" && this.props.loggedIn)
